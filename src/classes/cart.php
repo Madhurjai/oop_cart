@@ -1,5 +1,6 @@
 <?php
-session_start();
+namespace App ;
+// session_start();
 
 class cart
 {
@@ -10,7 +11,12 @@ class cart
 	}
 
 
-
+/**
+ *this function is used for insert data in cart
+ *
+ * @param [type] $val
+ * @return void
+ */
 	public function addtocart($val)
 	{
 		if(!$this->productexist($val)){  	

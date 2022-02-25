@@ -2,9 +2,11 @@
 
 session_start();
 // session_destroy();
-require('classes/cart.php');
-require('classes/product.php');
-// require('vendor/autoload.php');
+// require('classes/cart.php');
+// require('classes/product.php');
+use App\cart ;
+use App\product ;
+require('vendor/autoload.php');
 $arr = array(
 	array('id' => '101', 'img' => 'football.png', 'price' => '150.00', 'name' => 'foot ball'),
 	array('id' => '102', 'img' => 'tennis.png', 'price' => '120.00', 'name' => 'tennis'),
@@ -27,8 +29,13 @@ if (isset($_POST['listid'])) {
 	$cart->addtocart($val);
 	
 	$_SESSION['cart'] = $cart->getcart();
-	// print_r($_SESSION['cart']);
 }
+
+/**
+ * thsi function is used for display cart
+ *
+ * @return void
+ */
 function display_cart()
 {
 

@@ -1,5 +1,6 @@
 <?php
-session_start();
+// session_start();
+namespace App ;
 class product
 {
     public array $products ;
@@ -9,6 +10,11 @@ class product
 		$this->product =$products;
 		
 	}
+    /**
+     *this function is used for display products for purcahsing
+     *
+     * @return void
+     */
     public function display_pro(){
         $html = '<div id = "products">' ;
         foreach($this->product as $key => $val){
