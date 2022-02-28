@@ -3,11 +3,11 @@
 namespace App ;
 class product
 {
-    public array $products ;
+    // public array $products ;
 
 	public function __construct(array $products)
 	{
-		$this->product =$products;
+		$this->product = $products;
 		
 	}
     /**

@@ -31,6 +31,25 @@ if (isset($_POST['listid'])) {
 	$_SESSION['cart'] = $cart->getcart();
 }
 
+if(isset($_POST['update'])){
+	$id = $_POST['pro_id'];
+	foreach($_SESSION['cart'] as $key => $val){
+		if($val['id'] == $id){
+			$_SESSION['cart'][$key]['quantity'] += $_POST['input'];
+		}
+	}
+}
+if(isset($_POST['remove'])){
+	$id = $_POST['pro_id'];
+	foreach($_SESSION['cart'] as $key => $val){
+		if($val['id'] == $id){
+			array_splice($_SESSION['cart'],$key,1);
+		}
+	}
+}
+if(isset($_POST['del_cart'])){
+    $_SESSION['cart'] = array();	
+}
 /**
  * thsi function is used for display cart
  *
@@ -40,13 +59,21 @@ function display_cart()
 {
 
 	$total_price = 0;
-	$tab = "<table class = 'tab' ><tr><th>ID</th><th>Name</th><th>Price</th><th>quantity</th></tr>";
+	$tab = "<table class = 'tab' ><form method = 'POST'><button name = 'del_cart' class = 'del_cart'>X</button></form>
+	<tr><th>ID</th><th>Name</th><th>Price</th><th>quantity</th><th> update  quantity </th><th>product cost</th><th>del product</th></tr>";
 	foreach ($_SESSION['cart'] as $key => $val) {
-		$tab .= "<tr><td>" . $val['id'] . "</td><td>" . $val['name'] . "</td><td>" . $val['price'] . "</td>
-         <td>" . $val['quantity'] . "</td></tr>";
+		$tab .= "<form method = 'POST'><tr><td>" . $val['id'] . "</td>
+		<td>" . $val['name'] . "</td>
+		<td>" . $val['price'] . "</td>
+         <td>" . $val['quantity'] . "</td>
+		 <td class = 'upd'><input type = 'text' name = 'input'>
+		 <button name = 'update'>update</button></td>
+		 <td>".(int)$val['price'] * (int)$val['quantity']."</td>
+		 <td><button name = 'remove'>remove</button></td>
+		 <input type = 'hidden' name = 'pro_id' value = '".$val['id']."'></tr></form>";
 		$total_price += (int)$val['price'] * (int)$val['quantity'];
 		//  print_r($total_price);
-		echo $val['price'];
+		// echo $val['price'];
 	}
 	$tab .= "<tr><td colspan = '4'>total price : " . $total_price . "</td></tr></table>";
 	return $tab;
